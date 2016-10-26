@@ -1,16 +1,21 @@
 import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+app.debug = True
+
 app.config.update(dict(
 	DATABASE=os.path.join(app.root_path, 'flaskr.db'),
-	SECRET_KEY='development key',
+	SECRET_KEY='adiputra',
 	USERNAME='admin',
 	PASSWORD='default'
 ))
+
+toolbar = DebugToolbarExtension(app)
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
@@ -49,6 +54,7 @@ def close_db(error):
 
 @app.route("/")
 def show_entries():
+	app.logger.debug('show entries')
 	db = get_db()
 	cur = db.execute("select title, text from entries order by id desc")
 	entries = cur.fetchall()
