@@ -70,6 +70,15 @@ def add_entry():
 	flash("New entry was successfully posted")
 	return redirect(url_for("show_entries"))
 
+@app.route("/edit/<title>")
+def edit_entry(title):
+	pass
+
+@app.route("/delete/<title>")
+def delete_entry(title):
+	pass
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
 	error = None

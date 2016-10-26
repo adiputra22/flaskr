@@ -15,11 +15,27 @@
         </form>
     {% endif %}
     
-    <ul class=entries>
+    <table border=1>
+        <tr>
+            <td>No</td>
+            <td>Title</td>
+            <td>Text</td>
+            <td>Action</td>
+        </tr>
         {% for entry in entries %}
-            <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ entry.title }}</td>
+                <td>{{ entry.text|safe }}</td>
+                <td>
+                    <a href="{{ url_for('edit_entry', title=entry.title) }}">edit</a> | <a href="{{ url_for('delete_entry', title=entry.title) }}">delete</a>
+                </td>
+            </tr>
         {% else %}
-            <li><em>Unbelievable.  No entries here so far</em>
+            <tr>
+                <td><em>Unbelievable.  No entries here so far</em></td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
+
 {% endblock %}
